@@ -17,3 +17,17 @@ Feature: Write Articles
     Then I should see "Foobar"
     When I follow "Foobar"
     Then I should see "Lorem Ipsum"
+
+  # Scenario: A non-admin cannot merge articles
+  #   Given I am not an admin
+  #   Then I cannot log into the admin panel
+
+  # Scenario: New article contains text of both merged articles
+
+  # Scenario: Merged article has one author
+
+  # Scenario: New article contains comments of both merged articles
+
+  # Scenario: Title of new article from one article
+
+  # Scenario: Form field contains id #merge_with for autograder

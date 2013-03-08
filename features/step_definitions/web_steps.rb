@@ -41,6 +41,12 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+  User.create!({:login => 'user',
+                :password => 'bbbbbbbb',
+                :email => 'steve@snow.com',
+                :profile_id => 2,
+                :name => 'user',
+                :state => 'active'})
 end
 
 And /^I am logged into the admin panel$/ do
@@ -53,6 +59,30 @@ And /^I am logged into the admin panel$/ do
   else
     assert page.has_content?('Login successful')
   end
+end
+
+Given /^I am logged into the user panel$/ do
+  visit '/accounts/login'
+  fill_in 'user_login', :with => 'user'
+  fill_in 'user_password', :with => 'bbbbbbbb'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
+Given /^I am not an admin$/ do
+  page.should_not have_content('Settings')
+end
+
+Then /^I should see button "(.*?)"$/ do |button|
+  find_button(button).should_not be_false
+end
+
+Then /^I should not see the button "(.*?)"$/ do |button|
+  page.should have_no_button(button)
 end
 
 # Single-line step scoper

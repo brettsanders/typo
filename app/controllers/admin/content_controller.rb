@@ -113,6 +113,18 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge
+    # @current_article = Article.find(params[:id])
+    #(this variable should grab the article ID from the form) @input_article =
+    @input_article = Article.find(params[:merge_with])
+    @current_article = Article.find(params[:id])
+
+    @current_article.body = @current_article.body + @input_article.body 
+    if @current_article.save
+      redirect_to :action => :edit, :id => @current_article.id
+    end
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -240,4 +252,5 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
 end
